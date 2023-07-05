@@ -26,16 +26,25 @@ let persons = [
   }
 ]
 
-app.get('/api/persons', (_, response) => {
-  response.json(persons)
+// rest: get_phonebook_entries
+app.get('/api/persons', (_, res) => {
+  res.json(persons)
 })
 
-app.get('/info', (_, response) => {
+// rest: get_phonebook_info
+app.get('/info', (_, res) => {
   const body = `
     <p>Phonebook has info for ${persons.length} people</p>
     <p>${new Date()}</p>
   `
-  response.send(body)
+  res.send(body)
+})
+
+// rest: get_phonebook_entry
+app.get('/api/persons/:id', (req, res)=>{
+  const personId = Number(req.params.id)
+  const person = persons.find(({id}) => id === personId)
+  person ? res.json(person) : res.status(404).end()
 })
 
 const PORT = 3001
