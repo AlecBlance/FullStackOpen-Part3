@@ -54,6 +54,14 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204).end()
 })
 
+// rest: add_phonebook_entry
+app.post('/api/persons', (req, res) => {
+  const person = req.body 
+  person.id = Math.floor(Math.random() * 1000)
+  persons = persons.concat(person)
+  res.json(persons)
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
