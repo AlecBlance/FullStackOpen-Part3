@@ -32,7 +32,7 @@ app.get('/api/persons', (_, response) => {
 
 app.get('/info', (_, response) => {
   const body = `
-    <p>Phone book has info for ${persons.length} people</p>
+    <p>Phonebook has info for ${persons.length} people</p>
     <p>${new Date()}</p>
   `
   response.send(body)
