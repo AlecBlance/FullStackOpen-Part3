@@ -47,6 +47,13 @@ app.get('/api/persons/:id', (req, res)=>{
   person ? res.json(person) : res.status(404).end()
 })
 
+// rest: delete_phonebook_entry
+app.delete('/api/persons/:id', (req, res) => {
+  const personId = Number(req.params.id)
+  persons = persons.filter(({id}) => id !== personId)
+  res.status(204).end()
+})
+
 const PORT = 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
