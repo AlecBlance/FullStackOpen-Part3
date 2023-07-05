@@ -56,7 +56,11 @@ app.delete('/api/persons/:id', (req, res) => {
 
 // rest: add_phonebook_entry
 app.post('/api/persons', (req, res) => {
-  const person = req.body 
+  const person = req.body
+  const {name, number} = person
+  if (!name) return res.status(400).json({error: "name required"})
+  if (!number) return res.status(400).json({error: "phone number required"})
+  if (persons.some(person => person.name == name)) return res.status(400).json({error: "name must be unique"})
   person.id = Math.floor(Math.random() * 1000)
   persons = persons.concat(person)
   res.json(persons)
