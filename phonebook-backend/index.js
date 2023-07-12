@@ -69,10 +69,11 @@ app.post('/api/persons', (req, res) => {
   const {name, number} = person
   if (!name) return res.status(400).json({error: "name required"})
   if (!number) return res.status(400).json({error: "phone number required"})
-  if (persons.some(person => person.name == name)) return res.status(400).json({error: "name must be unique"})
-  person.id = Math.floor(Math.random() * 1000)
-  persons = persons.concat(person)
-  res.json(persons)
+  // if (persons.some(person => person.name == name)) return res.status(400).json({error: "name must be unique"})
+  // person.id = Math.floor(Math.random() * 1000)
+  Entry(person)
+    .save()
+    .then(person => res.json(person))
 })
 
 const PORT = process.env.PORT || 3001

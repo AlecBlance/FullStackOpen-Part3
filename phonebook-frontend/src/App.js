@@ -41,7 +41,7 @@ const App = () => {
       personsService
         .addPerson(data)
         .then(returnedPerson => {
-          setPersons(returnedPerson)
+          setPersons(persons.concat(returnedPerson))
           setNotification({message:`Added ${data.name}`, success: true})
           setTimeout(() => setNotification({}), 5000)
         })
