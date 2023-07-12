@@ -1,6 +1,8 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const Entry = require('./models/entry')
 
 morgan.token('body', (req, _) => JSON.stringify(req.body))
 
@@ -33,16 +35,18 @@ let persons = [
 
 // rest: get_phonebook_entries
 app.get('/api/persons', (_, res) => {
-  res.json(persons)
+  Entry.find({}).then(persons => res.json(persons))
 })
 
 // rest: get_phonebook_info
 app.get('/info', (_, res) => {
-  const body = `
-    <p>Phonebook has info for ${persons.length} people</p>
-    <p>${new Date()}</p>
-  `
-  res.send(body)
+  Entry.find({}).then(persons => {
+    const body = `
+      <p>Phonebook has info for ${persons.length} people</p>
+      <p>${new Date()}</p>
+    `
+    res.send(body)
+  })
 })
 
 // rest: get_phonebook_entry
