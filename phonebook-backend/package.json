@@ -30,6 +30,7 @@
   "homepage": "https://github.com/AlecBlance/FullStackOpen-Part3#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "mongoose": "^7.3.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
