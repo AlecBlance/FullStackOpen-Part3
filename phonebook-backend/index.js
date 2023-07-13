@@ -94,7 +94,7 @@ app.put('/api/persons/:id', (req, res, next) => {
     name: req.body.name,
     number: req.body.number
   }
-  Entry.findByIdAndUpdate(req.params.id, entryInfo,{new: true})
+  Entry.findByIdAndUpdate(req.params.id, entryInfo,{new: true, runValidators: true})
     .then(entry => res.json(entry))
     .catch(error => next(error))
 })
