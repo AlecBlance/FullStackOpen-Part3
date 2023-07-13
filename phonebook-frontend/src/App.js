@@ -35,7 +35,10 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.map(person => person.id == returnedPerson.id ? returnedPerson: person))
           setNotification({message: `Updated ${data.name}'s number`, success: true})})
-        .catch(error => setNotification({message: `Information of ${data.name} has already been removed from server`, success: false}))
+        .catch(error => {
+          const errorMessage = error.name === 'TypeError' ? `Information of ${data.name} has already been removed from server` : error.response.data.error
+          setNotification({message: errorMessage, success: false})
+        })
         .finally(setTimeout(() => setNotification({}), 5000))
     } else {
       personsService
