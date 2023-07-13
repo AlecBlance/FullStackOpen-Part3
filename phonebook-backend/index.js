@@ -61,10 +61,12 @@ app.get('/info', (_, res) => {
 })
 
 // rest: get_phonebook_entry
-app.get('/api/persons/:id', (req, res)=>{
-  const personId = Number(req.params.id)
-  const person = persons.find(({id}) => id === personId)
-  person ? res.json(person) : res.status(404).end()
+app.get('/api/persons/:id', (req, res, next)=>{
+  Entry.find({_id: req.params.id})
+    .then(person => {
+      person.length ? res.json(person) : res.status(404).end()
+    })
+    .catch(error => next(error))
 })
 
 // rest: delete_phonebook_entry
