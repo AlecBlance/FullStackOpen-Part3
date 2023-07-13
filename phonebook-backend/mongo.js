@@ -20,7 +20,6 @@ const entrySchema = new mongoose.Schema({
 
 const Entry = mongoose.model('Entry', entrySchema)
 
-
 if (process.argv.length > 3) {
   const name = process.argv[3]
   const number = process.argv[4]
@@ -28,18 +27,14 @@ if (process.argv.length > 3) {
     name: name,
     number: number
   })
-  entry.save().then(_ => {
+  entry.save().then(() => {
     console.log(`added ${name} number ${number} to phonebook`)
     mongoose.connection.close()
   })
 } else {
   Entry.find({}).then(result => {
     console.log('phonebook:')
-    result.map(({name, number}) => console.log(`${name} ${number}`))
+    result.map(({ name, number }) => console.log(`${name} ${number}`))
     mongoose.connection.close()
   })
 }
-
-
-
-
