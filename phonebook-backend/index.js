@@ -90,7 +90,6 @@ app.put('/api/persons/:id', (req, res, next) => {
     name: req.body.name,
     number: req.body.number
   }
-  console.log(entryInfo)
   Entry.findByIdAndUpdate(req.params.id, entryInfo,{new: true})
     .then(entry => res.json(entry))
     .catch(error => next(error))
