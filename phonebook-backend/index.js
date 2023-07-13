@@ -10,6 +10,7 @@ const errorHandler = (error, req, res, next) => {
   if (error.name === 'NameError') return res.status(400).json({error: "name required"})
   if (error.name === 'NumberError') return res.status(400).json({error: "phone number required"})
   if (error.name === 'CastError') return res.status(400).json({error: "malformed id"})
+  if (error.name === 'ValidationError') return res.status(400).json({error: error.message})
   next(error)
 }
 
@@ -85,6 +86,7 @@ app.post('/api/persons', (req, res, next) => {
   Entry(person)
     .save()
     .then(person => res.json(person))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {

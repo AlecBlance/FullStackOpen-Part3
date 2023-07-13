@@ -43,8 +43,9 @@ const App = () => {
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
           setNotification({message:`Added ${data.name}`, success: true})
-          setTimeout(() => setNotification({}), 5000)
         })
+        .catch(error => setNotification({message: error.response.data.error, success: false}))
+        .finally(setTimeout(() => setNotification({}), 5000))
     }
   }
 
